@@ -9,6 +9,13 @@ function itemsTable(props) {
     console.log(item.purchased)
     props.onEditItem(item)
   }
+
+  function openEditItem(item) {
+    console.log(props)
+    props.history.push('/item/:item.id')
+    props.getItem(item)
+    
+  }
   function displayItemRow(item){
     return (
       <tr key={item.id}>
@@ -18,7 +25,7 @@ function itemsTable(props) {
         <td>{ item.quantity }</td>
         <td>{ item.notes }</td>
         <td>{ item.category ? item.category.name : ''  }</td>
-        <td><i className="fa fa-pencil" aria-hidden = "true" ></i></td>
+        <td><i className="fa fa-pencil" aria-hidden = "true" onClick={() => openEditItem(item)} ></i></td>
         <td><i className="fa fa-trash"></i></td>
       </tr>
     )

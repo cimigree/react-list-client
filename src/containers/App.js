@@ -30,18 +30,18 @@ class App extends Component {
                    render = { () => <ItemsTable 
                    items = { this.props.items }
                    onEditItem = { this.props.editItemHandler }
+
                    /> }
             />
             <Route path = "/allitems"
-                   exact
                    name = "ItemsTable"
                    render = { () => <ItemsTable 
                    items = { this.props.allItems }
                    onEditItem = { this.props.editItemHandler }
+                   getItem = { this.props.getItem }
                    /> }
             />
-            <Route path = "/item"
-                   exact
+            <Route path = "/items/:id"
                    name = "ItemPage"
                    render = { () => <ItemPage
                   item = { this.props.item }
@@ -70,7 +70,8 @@ const mapDispatchToProps = dispatch => {
   return {
     listCurrentItems: () => dispatch(actionCreators.getItems()),
     listAllItems: () => dispatch(actionCreators.getAllItems()),
-    editItemHandler: (item) => dispatch(actionCreators.editItem(item))   
+    editItemHandler: (item) => dispatch(actionCreators.editItem(item)) ,
+    getItem: (item) => dispatch(actionCreators.getItem(item))  
     }
   }
 
@@ -78,7 +79,8 @@ App.propTypes = {
   item: PropTypes.object,
   items: PropTypes.array,
   listCurrentItems: PropTypes.func,
-  editItemHandler: PropTypes.func
+  editItemHandler: PropTypes.func,
+  getItem: PropTypes.func
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
