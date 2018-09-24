@@ -1,9 +1,10 @@
-import * as actionTypes from "./actions/actions"
+import * as actionTypes from "../actions/actionTypes"
 
 const initialState = {
   allItems: [],
   items: [],
-  item: {},
+  categories: [],
+  stores: [],
   itemsError: false,
   itemError: false,
   successMessage: false,
@@ -25,12 +26,6 @@ const reducer = (state = initialState, action) => {
         allItems: action.allItems,
         itemsError: false
       }
-    case actionTypes.GET_ITEM:
-      return {
-        ...state,
-        item: action.item,
-        itemError: false
-      }
     case actionTypes.EDIT_ITEM:
       return {
         ...state,
@@ -47,6 +42,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         itemsError: true
+      }
+    case actionTypes.GET_CATEGORIES:
+      return {
+        ...state,
+        categories: action.categories
+      }
+    case actionTypes.GET_STORES:
+      return {
+        ...state,
+        stores: action.stores
       }
     default:
       return state

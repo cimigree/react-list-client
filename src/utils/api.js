@@ -8,7 +8,7 @@ function fetchAllItems() {
   return axios.get('http://localhost:3001/items/items_all')
 }
 
-function getItem(itemId) {
+function fetchItem(itemId) {
   return axios.get(`http://localhost:3001/items/${itemId}`)
 }
 
@@ -20,13 +20,13 @@ function updateItem(itemToEdit) {
     item: {
       name: itemToEdit.name,
       brandName: itemToEdit.brandName,
-      category: itemToEdit.categoryId,
+      category: itemToEdit.category.id,
       coupon: itemToEdit.coupon,
       frequency: itemToEdit.frequency,
       note: itemToEdit.note,
       purchased: itemToEdit.purchased,
       quantity: itemToEdit.quantity,
-      storeIds: itemToEdit.storeIds
+      storeIds: itemToEdit.stores.map(s => {return s.id} )
     }
   })
 }
@@ -42,7 +42,7 @@ function createItem(itemToCreate) {
       note: itemToCreate.note,
       purchased: itemToCreate.purchased,
       quantity: itemToCreate.quantity,
-      storeIds: itemToCreate.storeIds
+      storeIds: itemToCreate.stores.map(s => {return s.id} )
     }
   })
 }
@@ -51,7 +51,7 @@ function deleteItem(itemId) {
   return axios.delete(`http://localhost:3001/items/${itemId}`)
 }
 
-function getStores() {
+function fetchStores() {
   return axios.get('http://localhost:3001/stores')
 }
 
@@ -63,7 +63,7 @@ function getStore(storeId) {
   return axios.get(`http://localhost:3001/stores/${storeId}`)
 }
 
-function editStore(storeToEdit) {
+function updateStore(storeToEdit) {
   return axios.put(`http://localhost:3001/stores/${storeToEdit.id}`, {
           store: {
             name: storeToEdit.name
@@ -79,15 +79,15 @@ function createStore(storeToCreate) {
         })
 }
 
-function deleteStore(storeId) {
+function removeStore(storeId) {
   return axios.delete(`http://localhost:3001/stores/${storeId}`)
 }
 
-function getCategories() {
+function fetchCategories() {
   return axios.get('http://localhost:3001/categories')
 }
 
-function editCategory(categoryToEdit) {
+function updateCategory(categoryToEdit) {
   return axios.put(`http://localhost:3001/categories/${categoryToEdit.id}`, {
           category: {
             name: categoryToEdit.name
@@ -103,8 +103,8 @@ function createCategory(categoryToCreate) {
         })
 }
 
-function deleteCategory(categoryId) {
+function removeCategory(categoryId) {
   return axios.delete(`http://localhost:3001/categories/${categoryId}`)
 }
 
-export { fetchItems, fetchAllItems, getItem, updateItem, createItem, deleteItem, getStores, getStoreAllItems, getStore, editStore, createStore, deleteStore, getCategories, editCategory, createCategory, deleteCategory }
+export { fetchItems, fetchAllItems, fetchItem, updateItem, createItem, deleteItem, fetchStores, getStoreAllItems, getStore, updateStore, createStore, removeStore, fetchCategories, updateCategory, createCategory, removeCategory }

@@ -3,18 +3,28 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {BrowserRouter, Route} from 'react-router-dom'
 
-import { createStore, applyMiddleware, compose } from "redux"
+import { createStore, applyMiddleware, compose, combineReducers } from "redux"
 import { Provider } from "react-redux"
 import thunk from 'redux-thunk'
 import registerServiceWorker from './registerServiceWorker'
 
 import './styles/index.css'
 import App from './containers/App'
-import reducer from "../src/store/reducer"
+import itemListReducer from "../src/store/reducers/itemsListReducer"
+import itemPageReducer from "../src/store/reducers/itemPageReducer"
+import storePageReducer from "../src/store/reducers/storePageReducer"
+import categoryPageReducer from "../src/store/reducers/categoryPageReducer"
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))
+const rootReducer = combineReducers({
+  list: itemListReducer,
+  page: itemPageReducer,
+  store: storePageReducer,
+  category: categoryPageReducer
+})
+
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 ReactDOM.render(
   <BrowserRouter>
